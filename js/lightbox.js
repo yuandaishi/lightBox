@@ -1,17 +1,20 @@
 ;(function($){
-	var LightBox=function(){
+	var LightBox=function(settings){
 		var _this=this;//因为this指向会随着执行环境的不同而改变，所以需要把当前对象保存
+		this.settings={//默认配置
+			mask:"slideInDown",//遮罩弹出动画
+			maskMove:"fadeOutDown",//遮罩消失动画
+			animated:"zoomIn",//弹窗动画
+			animatedMove:"zoomOut",//弹窗消失动画
+			duration:".8s",//弹窗动画时间
+			preNxtAnimated:"fadeOut",//前后箭头消失动画
+			preNxtAnimatedApp:"fadeIn",//前后箭头出现动画
+			imgAnimated:"flipInX"//图片加载动画	
+		};
+		$.extend(this.settings,settings||{});
 		this.bodyName=$(document.body);
-		this.mask="slideInDown";//遮罩弹出动画
-		this.maskMove="fadeOutDown";//遮罩消失动画
-		this.animated="zoomIn";//弹窗动画
-		this.animatedMove="zoomOut"//弹窗消失动画
-		this.duration=".8s";//弹窗动画时间
-		this.preNxtAnimated="fadeOut";//前后箭头消失动画
-		this.preNxtAnimatedApp="fadeIn";//前后箭头出现动画
-		this.imgAnimated="flipInX";//图片加载动画
-		this.lightbox_mask=$('<div class="lightbox_mask animated '+this.mask+'"></div>');
-		this.lightbox_contain=$('<div class="lightbox_contain animated '+this.animated+'" style="animation-duration:'+this.duration+';-webkit-animation-duration:'+this.duration+';"></div>');
+		this.lightbox_mask=$('<div class="lightbox_mask animated '+this.settings.mask+'"></div>');
+		this.lightbox_contain=$('<div class="lightbox_contain animated '+this.settings.animated+'" style="animation-duration:'+this.settings.duration+';-webkit-animation-duration:'+this.settings.duration+';"></div>');
 		//创建遮罩和弹出层
 		this.lightboxGroup=null;
 		this.lightboxGroupArr=[];
@@ -51,7 +54,7 @@
 		loadImg:function(k){
 			var _this=this;
 			var imgUrl=_this.lightboxGroupArr[k]["data-source"];
-			var strImg='<img src="'+imgUrl+'" class="lightbox_img animated '+_this.imgAnimated+'" />';
+			var strImg='<img src="'+imgUrl+'" class="lightbox_img animated '+_this.settings.imgAnimated+'" />';
 			var img=new Image();
 			img.src=imgUrl;
 			img.onload=function(){//图片加载成功之后，执行下面的代码，如果加载不成功，则不执行
@@ -85,19 +88,19 @@
 			this.lightbox_contain.html(strDom);
 			this.bodyName.append(this.lightbox_contain);
 			_this.preNextExist(k);
-			$(".lightbox_pre,.lightbox_next").addClass(this.preNxtAnimated);
+			$(".lightbox_pre,.lightbox_next").addClass(this.settings.preNxtAnimated);
 			$(".lightbox_pre,.lightbox_next").css({
-				"animation-delay":this.duration,
-				"-webkit-animation-delay":this.duration
+				"animation-delay":this.settings.duration,
+				"-webkit-animation-delay":this.settings.duration
 			})
 			$(".lightbox_btn").hover(function(){
 				$(this).css({
 					"animation-delay":"0s",
 					"-webkit-animation-delay":"0s"
 				})
-				$(this).removeClass(_this.preNxtAnimated);
+				$(this).removeClass(_this.settings.preNxtAnimated);
 			},function(){
-				$(this).removeClass(_this.preNxtAnimatedApp).addClass(_this.preNxtAnimated);
+				$(this).removeClass(_this.settings.preNxtAnimatedApp).addClass(_this.settings.preNxtAnimated);
 			})
 		},
 		
@@ -123,14 +126,14 @@
 		//关闭弹窗
 		closeLightboxContain:function(){
 			var _this=this;
-			$(".lightbox_mask").removeClass(this.mask).addClass(this.maskMove).delay(1100).queue(function(){//延迟执行
+			$(".lightbox_mask").removeClass(this.settings.mask).addClass(this.settings.maskMove).delay(1100).queue(function(){//延迟执行
 				$(this).remove();
 			});
-			$(".lightbox_contain").removeClass(this.animated).addClass(this.animatedMove).delay(1100).queue(function(){
+			$(".lightbox_contain").removeClass(this.settings.animated).addClass(this.settings.animatedMove).delay(1100).queue(function(){
 				$(this).remove();
 			});
-			this.lightbox_mask=$('<div class="lightbox_mask animated '+this.mask+'"></div>');//这里需要重新定义，具体原因目前不知道，
-			this.lightbox_contain=$('<div class="lightbox_contain animated '+this.animated+'" style="animation-duration:'+this.duration+';-webkit-animation-duration:'+this.duration+';"></div>');
+			this.lightbox_mask=$('<div class="lightbox_mask animated '+this.settings.mask+'"></div>');//这里需要重新定义，具体原因目前不知道，
+			this.lightbox_contain=$('<div class="lightbox_contain animated '+this.settings.animated+'" style="animation-duration:'+this.settings.duration+';-webkit-animation-duration:'+this.settings.duration+';"></div>');
 		},
 		//判断上下箭头是否显示
 		preNextExist:function(k){

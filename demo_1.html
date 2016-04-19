@@ -24,7 +24,11 @@
 			$("body").click(function(){
 				//console.log("hahah")
 			})
-			var lightbox=new LightBox();
+			//实例化一个函数，就相当于执行这个函数
+			var lightbox=new LightBox({//把这个对象当做一个参数传过去，它就是一个参数而已
+				imgAnimated:"slideInDown",
+				animatedMove:"slideOutDown"
+			});
 		})
 	</script>
 </html>
