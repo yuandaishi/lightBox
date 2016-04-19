@@ -1,0 +1,103 @@
+/*reset*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+margin:0;
+padding:0;
+}
+body{
+	font-family: "微软雅黑";
+	color: white;
+}
+table {
+border-collapse:collapse;
+border-spacing:0;
+}
+fieldset,img {
+border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+font-style:normal;
+font-weight:normal;
+}
+ol,ul {
+list-style:none;
+}
+caption,th {
+text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+font-size:100%;
+font-weight:normal;
+}
+q:before,q:after {
+content:'';
+}
+abbr,acronym { border:0;
+}
+a{
+	text-decoration: none;
+}
+/*弹窗修饰开始*/
+body{
+	color: #000000;
+}
+.lightbox_mask{
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: #000000;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	z-index: 9999;
+}
+.lightbox_contain{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 99999;
+	border: 2px solid #B0E0E6;
+	box-shadow: 0px 0px 10px #B0E0E6;
+	background: url(../icon/loading.gif) no-repeat center center;
+	background-color: #FFFFFF;
+}
+.lightbox_btn{
+	position: absolute;
+	width: 40%;
+	height: 100%;
+	cursor: pointer;
+}
+.lightbox_next{
+	right: 0;
+}
+.lightbox_pre{
+	background: url(../icon/prev.png) no-repeat left center;
+}
+.lightbox_next{
+	background: url(../icon/next.png) no-repeat right center;
+}
+.lightbox_pic_contain{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(245,141,20,.5);
+}
+.lightbox_close_btn{
+	background: url(../icon/close.png);
+	width: 27px;
+	height: 27px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	right: 10px;
+	cursor: pointer;
+}
+.lightbox_img{
+	display: block;
+	position: relative;
+	z-index: -999999;
+}
+
